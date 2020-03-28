@@ -51,6 +51,18 @@ app.post('/tasks',(req , res)=>{
 
 })
 
+app.get('/tasks',(req,res)=>{
+  Task.find({}).then((tasks)=>{
+   if(!tasks){
+     res.status(400).send()
+   }
+   res.send(tasks)
+  }).catch((e)=>{
+   res.status(500).send()
+  })
+})
+
+
 
 app.listen(port,()=>{
   console.log('the server is up on '+port)
