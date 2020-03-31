@@ -44,7 +44,10 @@ if(!isValidOperation){
  return res.status(400).send({error : 'invalid updates'})
 }
 try {
-  const user = await User.findByIdAndUpdate(req.params.id, req.body, {new : true, runValidators: true})
+  const user = await User.findById(req.params.id)
+   updates.forEach((update)=>user[update]=req.body[update])
+   await user.save()
+
   if(!user){
   return res.status(400).send()
   }
